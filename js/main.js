@@ -13,60 +13,61 @@ if (form && message) {
   });
 }
 
+const instagramProfileUrl = 'https://www.instagram.com/buho_producciones_artisticas/';
+
 const instagramGalleryItems = [
   {
     type: 'video',
-    url: 'https://www.instagram.com/reel/URL_DEL_REEL_1/',
-    title: 'Reel | El Circo de los Búhos en vivo para eventos familiares y festivales',
-    thumbnail: 'assets/img/gallery/instagram-reel-1.jpg'
+    url: 'https://www.instagram.com/reel/C1ry00DOpZF/',
+    title: 'Reel destacado · Show en acción'
   },
   {
     type: 'video',
-    url: 'https://www.instagram.com/reel/URL_DEL_REEL_2/',
-    title: 'Reel | Experiencia Nocturna Búho con fuego y presencia escénica',
-    thumbnail: 'assets/img/gallery/instagram-reel-2.jpg'
+    url: 'https://www.instagram.com/reel/DCO3hVmJo4T/',
+    title: 'Reel destacado · Fuego y escena nocturna'
   },
   {
     type: 'video',
-    url: 'https://www.instagram.com/reel/URL_DEL_REEL_3/',
-    title: 'Reel | Recepción e impacto visual de Búho para celebraciones y eventos',
-    thumbnail: 'assets/img/gallery/instagram-reel-3.jpg'
+    url: 'https://www.instagram.com/reel/DNULtS0pLsW/',
+    title: 'Reel destacado · Impacto visual en vivo'
   },
   {
     type: 'image',
-    url: 'https://www.instagram.com/p/URL_DEL_POST_1/',
-    title: 'Post | Artistas de Búho en escena durante una presentación nocturna',
-    thumbnail: 'assets/img/gallery/instagram-post-1.jpg'
+    url: 'https://www.instagram.com/p/DSaWagOieni/',
+    title: 'Publicación destacada · Producción en show'
   },
   {
     type: 'image',
-    url: 'https://www.instagram.com/p/URL_DEL_POST_2/',
-    title: 'Post | Intervención visual de Búho para noches temáticas y eventos',
-    thumbnail: 'assets/img/gallery/instagram-post-2.jpg'
+    url: 'https://www.instagram.com/p/DGQum4rRvRe/',
+    title: 'Publicación destacada · Momento escénico'
   },
   {
     type: 'image',
-    url: 'https://www.instagram.com/p/URL_DEL_POST_3/',
-    title: 'Post | Recepción artística de Búho para bodas y celebraciones',
-    thumbnail: 'assets/img/gallery/instagram-post-3.jpg'
+    url: 'https://www.instagram.com/p/CmO4ERJu6YH/',
+    title: 'Publicación destacada · Búho en evento'
   }
 ];
 
 const instagramGallery = document.querySelector('#instagram-gallery');
+const instagramProfileLinks = document.querySelectorAll('[data-instagram-profile-link]');
+
+instagramProfileLinks.forEach((link) => {
+  link.setAttribute('href', instagramProfileUrl);
+});
 
 if (instagramGallery) {
   const galleryMarkup = instagramGalleryItems
-    .map((item) => {
-      const badge = item.type === 'video' ? '🎬 Reel' : '📷 Post';
+    .map((item, index) => {
+      const isVideo = item.type === 'video';
+      const badge = isVideo ? '🎬 Reel' : '📷 Post';
+      const visualLabel = isVideo ? 'Video real en Instagram' : 'Foto real en Instagram';
 
       return `
         <article class="instagram-item">
-          <img
-            class="instagram-thumb"
-            src="${item.thumbnail}"
-            alt="${item.title}"
-            loading="lazy"
-          />
+          <div class="instagram-visual" aria-hidden="true">
+            <span>${visualLabel}</span>
+            <strong>#${index + 1}</strong>
+          </div>
           <div class="instagram-meta">
             <span class="instagram-type">${badge}</span>
             <h3>${item.title}</h3>
@@ -81,3 +82,37 @@ if (instagramGallery) {
 
   instagramGallery.innerHTML = galleryMarkup;
 }
+
+const contactConfig = {
+  Miguel: {
+    phone: '5493814012526',
+    label: 'Hablar con Miguel'
+  },
+  Nano: {
+    phone: '5493816711400',
+    label: 'Hablar con Nano'
+  },
+  messages: {
+    generalMiguel:
+      'Hola Miguel, quiero consultar por un show de Búho Producciones Artísticas para un evento.',
+    generalNano:
+      'Hola Nano, quiero consultar por un show de Búho Producciones Artísticas para un evento.',
+    bar: 'Hola, quiero consultar por la Experiencia Nocturna Búho para un bar o evento nocturno.',
+    familiar: 'Hola, quiero consultar por El Circo de los Búhos para un evento.'
+  }
+};
+
+const whatsappButtons = document.querySelectorAll('[data-whatsapp-contact]');
+
+whatsappButtons.forEach((button) => {
+  const person = button.getAttribute('data-whatsapp-contact');
+  const messageKey = button.getAttribute('data-whatsapp-message');
+
+  if (!person || !messageKey || !contactConfig[person] || !contactConfig.messages[messageKey]) {
+    return;
+  }
+
+  const phone = contactConfig[person].phone;
+  const text = encodeURIComponent(contactConfig.messages[messageKey]);
+  button.setAttribute('href', `https://wa.me/${phone}?text=${text}`);
+});
