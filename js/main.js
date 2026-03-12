@@ -326,3 +326,259 @@ whatsappButtons.forEach((button) => {
   const text = encodeURIComponent(contactConfig.messages[messageKey]);
   button.setAttribute('href', `https://wa.me/${phone}?text=${text}`);
 });
+
+const pricingGrid = document.querySelector('#pricingGrid');
+
+if (pricingGrid) {
+  const pricingIcons = {
+    artist: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 12a4.6 4.6 0 1 0-4.6-4.6A4.6 4.6 0 0 0 12 12Z" stroke="currentColor" stroke-width="2"/><path d="M20 21a8 8 0 0 0-16 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`,
+    clock: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 22A10 10 0 1 0 2 12a10 10 0 0 0 10 10Z" stroke="currentColor" stroke-width="2"/><path d="M12 6v6l4 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`,
+    fire: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 22c4 0 7-3 7-7 0-3.5-2-5.5-4-7 0 2-1.5 3-3 4-1-2-1-4-1-6-3 2-6 5-6 9 0 4 3 7 7 7Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>`,
+    lights: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 2l1.2 3.7L17 7l-3.8 1.3L12 12l-1.2-3.7L7 7l3.8-1.3L12 2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M19 12l.8 2.4L22 15l-2.2.7L19 18l-.8-2.3L16 15l2.2-.6L19 12Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>`,
+    bubbles: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M8.5 12.5a3.5 3.5 0 1 0-3.5-3.5 3.5 3.5 0 0 0 3.5 3.5Z" stroke="currentColor" stroke-width="2"/><path d="M16.5 20.5a3 3 0 1 0-3-3 3 3 0 0 0 3 3Z" stroke="currentColor" stroke-width="2"/><path d="M17 11a2.5 2.5 0 1 0-2.5-2.5A2.5 2.5 0 0 0 17 11Z" stroke="currentColor" stroke-width="2"/></svg>`,
+    stilts: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M8 3v18M16 3v18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M6 8h6M12 12h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M7 21h2M15 21h2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`,
+    magic: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 21l18-18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M7 17l-2-2M11 13l-2-2M15 9l-2-2M19 5l-2-2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M19 14l1 3 3 1-3 1-1 3-1-3-3-1 3-1 1-3Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>`,
+    games: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M7 10h4M9 8v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M15 9h.01M17 11h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M9 18H7a4 4 0 0 1-4-4V12a6 6 0 0 1 6-6h6a6 6 0 0 1 6 6v2a4 4 0 0 1-4 4h-2l-3 2-3-2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>`,
+    acro: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 5a2 2 0 1 0-2-2 2 2 0 0 0 2 2Z" stroke="currentColor" stroke-width="2"/><path d="M6 11l4-2 2 2 2-2 4 2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 22l2-7 2 2 2-2 2 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+    photo: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6h-3l-2-2H9L7 6H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2Z" stroke="currentColor" stroke-width="2"/><path d="M12 17a4 4 0 1 0-4-4 4 4 0 0 0 4 4Z" stroke="currentColor" stroke-width="2"/></svg>`,
+    juggling: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M8 9a2 2 0 1 0-2-2 2 2 0 0 0 2 2Z" stroke="currentColor" stroke-width="2"/><path d="M16 9a2 2 0 1 0-2-2 2 2 0 0 0 2 2Z" stroke="currentColor" stroke-width="2"/><path d="M12 22a2 2 0 1 0-2-2 2 2 0 0 0 2 2Z" stroke="currentColor" stroke-width="2"/><path d="M7 9c1.5 3 6 3 7.5 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M10.2 19.2c-2.6-1.2-3.9-5.1-2.7-7.7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M13.8 19.2c2.6-1.2 3.9-5.1 2.7-7.7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`,
+    unicycle: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 13a7 7 0 1 0 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M12 13V6l4 2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M20 20v-6h-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`,
+    dance: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M14 5a2 2 0 1 0-2-2 2 2 0 0 0 2 2Z" stroke="currentColor" stroke-width="2"/><path d="M12 22l2-6-2-2 3-3 3 2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 22l1-5-3-3 3-3 3 2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`
+  };
+
+  const money = (value) => `$ ${Math.round(value).toLocaleString('es-AR')}`;
+  const icon = (svgStr, on, title = '', toggle = false, id = '') => `<span class="ico ${on ? 'on' : ''} ${toggle ? 'toggle' : ''}" ${id ? `data-tid="${id}"` : ''} title="${title}"><span>${svgStr}</span></span>`;
+
+  const fixedPackages = [
+    {
+      name: 'SHOW 1 ARTISTA',
+      sub: 'Momento wow rápido, ideal para no cortar la dinámica.',
+      list: 75000,
+      promo: 74900,
+      badge: '',
+      artists: 1,
+      dur: '20 a 30 min',
+      impact: { fire: true, lights: false, bubbles: false, stilts: false },
+      inter: { magic: false, games: true, acro: false, photo: true },
+      skills: { juggling: true, acro: false, magic: false, unicycle: false, dance: false },
+      why: 'Sorpresa fuerte + fotos y reels sin extender el cronograma.'
+    },
+    {
+      name: 'RECEPCIÓN + SHOW',
+      sub: 'Bienvenida con presencia escénica + show final para cerrar arriba.',
+      list: 130000,
+      promo: 129900,
+      badge: 'Más vendido',
+      artists: 1,
+      dur: '45 min + 20 min',
+      impact: { fire: true, lights: true, bubbles: false, stilts: false },
+      inter: { magic: true, games: true, acro: false, photo: true },
+      skills: { juggling: true, acro: false, magic: true, unicycle: false, dance: false },
+      why: 'Levanta el evento desde que llegan y asegura un cierre épico.'
+    },
+    {
+      name: 'SHOW 2 ARTISTAS',
+      sub: 'Dúo con más ritmo, variedad y presencia de escenario.',
+      list: 200000,
+      promo: 199900,
+      badge: '',
+      artists: 2,
+      dur: '1 hora',
+      impact: { fire: true, lights: true, bubbles: true, stilts: true },
+      inter: { magic: false, games: true, acro: true, photo: true },
+      skills: { juggling: true, acro: true, magic: false, unicycle: false, dance: false },
+      why: 'Más impacto y sensación de “producción grande” en el público.'
+    },
+    {
+      name: 'FULL EVENTO',
+      sub: 'Recepción completa + show central en dúo. Evento resuelto.',
+      list: 360000,
+      promo: 349900,
+      badge: 'Mejor valor',
+      artists: 2,
+      dur: '1 h + 1 h',
+      impact: { fire: true, lights: true, bubbles: true, stilts: true },
+      inter: { magic: true, games: true, acro: true, photo: true },
+      skills: { juggling: true, acro: true, magic: true, unicycle: false, dance: false },
+      why: 'La premium: máxima recordación + más tiempo en escena.'
+    }
+  ];
+
+  const artistIcons = (count) => icon(pricingIcons.artist, count >= 1, '1 artista') + icon(pricingIcons.artist, count >= 2, '2 artistas');
+
+  const fixedCard = (pkg) => {
+    const save = pkg.list - pkg.promo;
+    return `
+      <article class="p-card">
+        ${pkg.badge ? `<div class="p-badge">${pkg.badge}</div>` : ''}
+        <div class="p-title">${pkg.name}</div>
+        <p class="p-sub">${pkg.sub}</p>
+        <div class="p-price">
+          <div class="now">${money(pkg.promo)}</div>
+          <div class="list">${money(pkg.list)}</div>
+        </div>
+        <div class="p-save">Ahorrás ${money(save)}</div>
+        <div class="p-feats">
+          <div class="p-feat"><div class="left">Artistas</div><div class="p-icons">${artistIcons(pkg.artists)}</div></div>
+          <div class="p-feat"><div class="left">Duración</div><div class="p-icons">${icon(pricingIcons.clock, true, 'Duración')} <span style="font-weight:800">${pkg.dur}</span></div></div>
+          <div class="p-feat"><div class="left">Impacto visual</div><div class="p-icons">${icon(pricingIcons.fire, pkg.impact.fire, 'Fuego')}${icon(pricingIcons.lights, pkg.impact.lights, 'Luces')}${icon(pricingIcons.bubbles, pkg.impact.bubbles, 'Burbujas')}${icon(pricingIcons.stilts, pkg.impact.stilts, 'Zancos')}</div></div>
+          <div class="p-feat"><div class="left">Interacción</div><div class="p-icons">${icon(pricingIcons.magic, pkg.inter.magic, 'Magia interactiva')}${icon(pricingIcons.games, pkg.inter.games, 'Juegos')}${icon(pricingIcons.acro, pkg.inter.acro, 'Acro con público')}${icon(pricingIcons.photo, pkg.inter.photo, 'Foto / reels')}</div></div>
+          <div class="p-feat"><div class="left">Habilidades</div><div class="p-icons">${icon(pricingIcons.juggling, pkg.skills.juggling, 'Malabares')}${icon(pricingIcons.acro, pkg.skills.acro, 'Acrobacias')}${icon(pricingIcons.magic, pkg.skills.magic, 'Magia')}${icon(pricingIcons.unicycle, pkg.skills.unicycle, 'Monociclo')}${icon(pricingIcons.dance, pkg.skills.dance, 'Baile')}</div></div>
+        </div>
+        <div class="p-why"><b>Por qué te conviene:</b> ${pkg.why}</div>
+        <div class="p-actions">
+          <a class="primary" href="#contacto">Reservar</a>
+          <a class="secondary" href="#precios">Ver promos</a>
+        </div>
+      </article>
+    `;
+  };
+
+  const builderState = {
+    artists: 1,
+    receptionMin: 0,
+    showMin: 25,
+    uberOneWay: 0,
+    impact: { fire: false, lights: false, bubbles: false, stilts: false },
+    inter: { magic: false, games: false, acro: false, photo: true },
+    skills: { juggling: true, acro: false, magic: false, unicycle: false, dance: false }
+  };
+
+  const baseFixed = 42000;
+  const perArtistHour = 80000;
+  const costs = {
+    impact: { fire: 15000, lights: 12000, bubbles: 12000, stilts: 14000 },
+    inter: { magic: 14000, games: 9000, acro: 16000, photo: 7000 },
+    skills: { juggling: 8000, acro: 14000, magic: 14000, unicycle: 16000, dance: 12000 }
+  };
+
+  const sumToggles = (group, values) => Object.keys(values).reduce((acc, key) => acc + (values[key] ? group[key] : 0), 0);
+
+  const calcBuilder = () => {
+    const totalMin = builderState.receptionMin + builderState.showMin;
+    const artistHours = (totalMin / 60) * builderState.artists;
+    const base = baseFixed + perArtistHour * artistHours;
+    const extras = sumToggles(costs.impact, builderState.impact) + sumToggles(costs.inter, builderState.inter) + sumToggles(costs.skills, builderState.skills);
+    const travel = builderState.uberOneWay * 2;
+    const total = base + extras + travel;
+    return { base, extras, travel, total, totalMin };
+  };
+
+  const builderCard = () => {
+    const { base, extras, travel, total, totalMin } = calcBuilder();
+
+    const toggleRow = (label, items) => {
+      const parts = items.map((item) => icon(item.icon, builderState[item.group][item.key], item.title, true, `${item.group}:${item.key}`)).join('');
+      return `<div class="p-feat"><div class="left">${label}</div><div class="p-icons">${parts}</div></div>`;
+    };
+
+    return `
+      <article class="p-card builder" id="builderCard">
+        <div class="p-badge">Armá tu show</div>
+        <div class="p-title">Personalizado (máx. 6 artistas)</div>
+        <p class="p-sub">Prendé/apagá ítems y ajustá duración. Te da un estimado para cotizar rápido.</p>
+        <div class="p-feats">
+          <div class="p-feat"><div class="left">Artistas</div><div class="ctrl"><button class="btn-step" data-step="artists:-1">−</button><div class="ctrl-val"><span id="bArtistsVal">${builderState.artists}</span> artista(s)</div><button class="btn-step" data-step="artists:+1">+</button></div></div>
+          <div class="p-feat"><div class="left">Recepción</div><div class="ctrl"><button class="btn-step" data-step="reception:-5">−</button><div class="ctrl-val"><span id="bRecVal">${builderState.receptionMin}</span> min</div><button class="btn-step" data-step="reception:+5">+</button></div></div>
+          <div class="p-feat"><div class="left">Show</div><div class="ctrl"><button class="btn-step" data-step="show:-5">−</button><div class="ctrl-val"><span id="bShowVal">${builderState.showMin}</span> min</div><button class="btn-step" data-step="show:+5">+</button></div></div>
+          ${toggleRow('Impacto visual', [
+            { key: 'fire', icon: pricingIcons.fire, title: 'Fuego', group: 'impact' },
+            { key: 'lights', icon: pricingIcons.lights, title: 'Luces', group: 'impact' },
+            { key: 'bubbles', icon: pricingIcons.bubbles, title: 'Burbujas', group: 'impact' },
+            { key: 'stilts', icon: pricingIcons.stilts, title: 'Zancos', group: 'impact' }
+          ])}
+          ${toggleRow('Interacción', [
+            { key: 'magic', icon: pricingIcons.magic, title: 'Magia interactiva', group: 'inter' },
+            { key: 'games', icon: pricingIcons.games, title: 'Juegos / desafíos', group: 'inter' },
+            { key: 'acro', icon: pricingIcons.acro, title: 'Acro con público (según condiciones)', group: 'inter' },
+            { key: 'photo', icon: pricingIcons.photo, title: 'Momento foto / reels', group: 'inter' }
+          ])}
+          ${toggleRow('Habilidades', [
+            { key: 'juggling', icon: pricingIcons.juggling, title: 'Malabares', group: 'skills' },
+            { key: 'acro', icon: pricingIcons.acro, title: 'Acrobacias', group: 'skills' },
+            { key: 'magic', icon: pricingIcons.magic, title: 'Magia', group: 'skills' },
+            { key: 'unicycle', icon: pricingIcons.unicycle, title: 'Monociclo', group: 'skills' },
+            { key: 'dance', icon: pricingIcons.dance, title: 'Baile', group: 'skills' }
+          ])}
+          <div class="p-feat"><div class="left">Traslado (Uber ida)</div><div style="width: 180px;"><input class="mini-input" id="bUber" type="number" min="0" step="100" value="${builderState.uberOneWay}"/><div class="small">Se duplica ida y vuelta.</div></div></div>
+        </div>
+        <div class="total-box">
+          <div class="row"><span>Base (según artistas y minutos)</span><b id="tBase">${money(base)}</b></div>
+          <div class="row"><span>Extras seleccionados</span><b id="tExtras">${money(extras)}</b></div>
+          <div class="row"><span>Traslado (ida y vuelta)</span><b id="tTravel">${money(travel)}</b></div>
+          <div class="row"><span>Total estimado</span><b id="tTotal">${money(total)}</b></div>
+        </div>
+        <div class="p-why" id="tNote"><b>Resumen:</b> ${builderState.artists} artista(s) · ${totalMin} min (recepción ${builderState.receptionMin} + show ${builderState.showMin}).<br/>* Estimado sin traslado: ${money(base + extras)}.</div>
+        <div class="p-actions"><a class="primary" href="#contacto">Quiero cotizar mi fecha</a><a class="secondary" href="#precios">Ver paquetes</a></div>
+      </article>
+    `;
+  };
+
+  const renderPricing = () => {
+    pricingGrid.innerHTML = fixedPackages.map(fixedCard).join('') + builderCard();
+    wireBuilder();
+  };
+
+  const updateBuilder = () => {
+    const { base, extras, travel, total, totalMin } = calcBuilder();
+
+    document.querySelector('#bArtistsVal').textContent = String(builderState.artists);
+    document.querySelector('#bRecVal').textContent = String(builderState.receptionMin);
+    document.querySelector('#bShowVal').textContent = String(builderState.showMin);
+    document.querySelector('#tBase').textContent = money(base);
+    document.querySelector('#tExtras').textContent = money(extras);
+    document.querySelector('#tTravel').textContent = money(travel);
+    document.querySelector('#tTotal').textContent = money(total);
+    document.querySelector('#tNote').innerHTML = `<b>Resumen:</b> ${builderState.artists} artista(s) · ${totalMin} min (recepción ${builderState.receptionMin} + show ${builderState.showMin}).<br/>* Estimado sin traslado: ${money(base + extras)}.`;
+
+    const root = document.querySelector('#builderCard');
+    root.querySelectorAll('.ico.toggle').forEach((box) => {
+      const [group, key] = box.getAttribute('data-tid').split(':');
+      box.classList.toggle('on', Boolean(builderState[group][key]));
+    });
+  };
+
+  const wireBuilder = () => {
+    const root = document.querySelector('#builderCard');
+    if (!root) {
+      return;
+    }
+
+    root.querySelectorAll('[data-step]').forEach((button) => {
+      button.addEventListener('click', () => {
+        const [field, deltaRaw] = button.getAttribute('data-step').split(':');
+        const delta = Number.parseInt(deltaRaw.replace('+', ''), 10);
+
+        if (field === 'artists') {
+          builderState.artists = Math.max(1, Math.min(6, builderState.artists + delta));
+        }
+
+        if (field === 'reception') {
+          builderState.receptionMin = Math.max(0, Math.min(180, builderState.receptionMin + delta));
+        }
+
+        if (field === 'show') {
+          builderState.showMin = Math.max(10, Math.min(180, builderState.showMin + delta));
+        }
+
+        updateBuilder();
+      });
+    });
+
+    root.querySelectorAll('.ico.toggle').forEach((box) => {
+      box.addEventListener('click', () => {
+        const [group, key] = box.getAttribute('data-tid').split(':');
+        builderState[group][key] = !builderState[group][key];
+        updateBuilder();
+      });
+    });
+
+    const uberInput = root.querySelector('#bUber');
+    uberInput.addEventListener('input', () => {
+      builderState.uberOneWay = Math.max(0, Number.parseFloat(uberInput.value || '0'));
+      updateBuilder();
+    });
+  };
+
+  renderPricing();
+}
