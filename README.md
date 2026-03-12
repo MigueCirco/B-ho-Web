@@ -45,7 +45,7 @@ La galería se renderiza desde un arreglo editable en `js/main.js`:
 
 ```js
 const instagramGalleryItems = [
-  { type: 'video', url: '...', title: '...', thumbnail: '...' },
+  { type: 'video', url: '...', title: '...' },
   // ... 6 ítems totales
 ];
 ```
@@ -53,7 +53,6 @@ const instagramGalleryItems = [
 Para actualizarla solo editás:
 1. `url` (enlace de Instagram).
 2. `title` (texto comercial breve).
-3. `thumbnail` (miniatura local para carga rápida).
 
 ## 3) Preview local
 
@@ -67,4 +66,16 @@ Luego abrir: `http://localhost:8000`
 
 - **Cambiar videos de productos:** reemplazar los 3 `.mp4` con el mismo nombre.
 - **Cambiar links de Instagram:** editar solo `instagramGalleryItems` en `js/main.js`.
-- **Cambiar miniaturas de Instagram:** actualizar archivos en `assets/img/gallery/` y mantener nombres o editar `thumbnail`.
+
+
+## 5) Configuración rápida de Instagram y WhatsApp
+
+Editá `js/main.js` para cambios comerciales frecuentes:
+
+- `instagramProfileUrl`: URL del perfil oficial.
+- `instagramGalleryItems`: los 6 contenidos de galería (3 reels + 3 posts).
+- `contactConfig.Miguel.phone`: número de Miguel.
+- `contactConfig.Nano.phone`: número de Nano.
+- `contactConfig.messages`: textos predeterminados para WhatsApp (general, bar y familiar).
+
+> Guía ampliada: `docs/content-guide.md`.

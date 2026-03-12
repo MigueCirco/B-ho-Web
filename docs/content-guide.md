@@ -32,12 +32,12 @@ La sección `#galeria` se genera dinámicamente desde `js/main.js` usando este a
 
 ```js
 const instagramGalleryItems = [
-  { type: 'video', url: 'URL_DEL_REEL_1', title: '...', thumbnail: 'assets/img/gallery/instagram-reel-1.jpg' },
-  { type: 'video', url: 'URL_DEL_REEL_2', title: '...', thumbnail: 'assets/img/gallery/instagram-reel-2.jpg' },
-  { type: 'video', url: 'URL_DEL_REEL_3', title: '...', thumbnail: 'assets/img/gallery/instagram-reel-3.jpg' },
-  { type: 'image', url: 'URL_DEL_POST_1', title: '...', thumbnail: 'assets/img/gallery/instagram-post-1.jpg' },
-  { type: 'image', url: 'URL_DEL_POST_2', title: '...', thumbnail: 'assets/img/gallery/instagram-post-2.jpg' },
-  { type: 'image', url: 'URL_DEL_POST_3', title: '...', thumbnail: 'assets/img/gallery/instagram-post-3.jpg' }
+  { type: 'video', url: 'https://www.instagram.com/reel/.../', title: '...' },
+  { type: 'video', url: 'https://www.instagram.com/reel/.../', title: '...' },
+  { type: 'video', url: 'https://www.instagram.com/reel/.../', title: '...' },
+  { type: 'image', url: 'https://www.instagram.com/p/.../', title: '...' },
+  { type: 'image', url: 'https://www.instagram.com/p/.../', title: '...' },
+  { type: 'image', url: 'https://www.instagram.com/p/.../', title: '...' }
 ];
 ```
 
@@ -46,12 +46,60 @@ const instagramGalleryItems = [
 - `type`: `video` para reel, `image` para post/foto.
 - `url`: link público de Instagram.
 - `title`: texto visible en tarjeta.
-- `thumbnail`: miniatura local para carga rápida.
 
 ---
 
 ## 3) Mantenimiento visual recomendado
 
-- Mantener miniaturas verticales con proporción cercana a 4:5.
+- Mantener tarjetas visuales claras y livianas para no sobrecargar la carga inicial.
 - Comprimir videos e imágenes antes de publicar.
 - Evitar cambiar IDs de secciones (`#productos`, `#galeria`) para no romper navegación.
+
+
+---
+
+## 4) Instagram oficial y links editables
+
+Toda la configuración comercial está en `js/main.js`:
+
+- **Perfil oficial de Instagram:** cambiar `instagramProfileUrl`.
+- **Los 6 links de galería (3 reels + 3 posts):** cambiar `url` dentro de `instagramGalleryItems`.
+- **Título visible de cada tarjeta:** cambiar `title` en cada item.
+
+Ejemplo:
+
+```js
+const instagramProfileUrl = 'https://www.instagram.com/buho_producciones_artisticas/';
+
+const instagramGalleryItems = [
+  { type: 'video', url: 'https://www.instagram.com/reel/C1ry00DOpZF/', title: '...' },
+  // ...
+];
+```
+
+## 5) WhatsApp (Miguel y Nano) y mensajes predeterminados
+
+También se edita en `js/main.js`, dentro de `contactConfig`:
+
+- **Número de Miguel:** `contactConfig.Miguel.phone`
+- **Número de Nano:** `contactConfig.Nano.phone`
+- **Mensajes predeterminados:** `contactConfig.messages`
+  - `generalMiguel`
+  - `generalNano`
+  - `bar`
+  - `familiar`
+
+Ejemplo:
+
+```js
+const contactConfig = {
+  Miguel: { phone: '5493814012526', label: 'Hablar con Miguel' },
+  Nano: { phone: '5493816711400', label: 'Hablar con Nano' },
+  messages: {
+    generalMiguel: 'Hola Miguel, ...',
+    generalNano: 'Hola Nano, ...',
+    bar: 'Hola, quiero consultar por la Experiencia Nocturna Búho para un bar o evento nocturno.',
+    familiar: 'Hola, quiero consultar por El Circo de los Búhos para un evento.'
+  }
+};
+```

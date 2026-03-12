@@ -198,6 +198,18 @@
           <div class="grid gallery-grid instagram-gallery" id="instagram-gallery" aria-live="polite">
             <!-- Render dinámico desde js/main.js para facilitar mantenimiento de URLs de Instagram -->
           </div>
+          <div class="instagram-profile-cta">
+            <p>Mirá más shows en acción en el Instagram oficial de Búho.</p>
+            <a
+              class="button button-secondary"
+              data-instagram-profile-link
+              href="https://www.instagram.com/buho_producciones_artisticas/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Seguinos en Instagram
+            </a>
+          </div>
           <noscript>Activá JavaScript para ver la galería de Instagram.</noscript>
         </div>
       </section>
@@ -251,9 +263,30 @@
         <div class="container">
           <h2>Contacto</h2>
           <p>
-            Contanos tu fecha, lugar y tipo de evento. Te proponemos el formato ideal y te enviamos
-            presupuesto.
+            Escribinos directo y te respondemos con propuesta, disponibilidad y opciones para tu
+            fecha.
           </p>
+          <div class="contact-whatsapp-grid">
+            <article class="contact-whatsapp-card">
+              <h3>Miguel</h3>
+              <p>Atención comercial para consultas generales y reservas.</p>
+              <div class="contact-whatsapp-actions">
+                <a class="button" data-whatsapp-contact="Miguel" data-whatsapp-message="generalMiguel" href="#">Hablar con Miguel</a>
+                <a class="button button-secondary" data-whatsapp-contact="Miguel" data-whatsapp-message="bar" href="#">Evento para bar</a>
+                <a class="button button-secondary" data-whatsapp-contact="Miguel" data-whatsapp-message="familiar" href="#">Evento familiar</a>
+              </div>
+            </article>
+            <article class="contact-whatsapp-card">
+              <h3>Nano</h3>
+              <p>Coordinación de shows y disponibilidad de fechas.</p>
+              <div class="contact-whatsapp-actions">
+                <a class="button" data-whatsapp-contact="Nano" data-whatsapp-message="generalNano" href="#">Hablar con Nano</a>
+                <a class="button button-secondary" data-whatsapp-contact="Nano" data-whatsapp-message="bar" href="#">Evento para bar</a>
+                <a class="button button-secondary" data-whatsapp-contact="Nano" data-whatsapp-message="familiar" href="#">Evento familiar</a>
+              </div>
+            </article>
+          </div>
+          <p class="contact-form-note">Si preferís, también podés completar este formulario:</p>
           <form class="contact-form" novalidate>
             <label>
               Nombre
